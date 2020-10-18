@@ -1,6 +1,6 @@
 WORK IN PROGRESS
 
-This renderer is a little individual project made to put the basics of the rendering process into practise.
+This renderer is a little individual project made to put the basics of the rendering process into practice.
 It is minimalist and low-level enough in order to show clearly the maths involved and not to overload the code uselessly.
 
 This programm simply generate a ppm picture ("triangles_in_perspective.ppm") from the virtual camera in the current directory. 
