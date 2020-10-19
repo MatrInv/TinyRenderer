@@ -2,24 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <float.h>
-#include <cassert>
 
-errno_t fopen_s(FILE **f, const char *name, const char *mode) {
-    errno_t ret = 0;
-    assert(f);
-    *f = fopen(name, mode);
-    /* Can't be sure about 1-to-1 mapping of errno and MS' errno_t */
-    if (!*f)
-        ret = errno;
-    return ret;
-}
 
 void write_ppm( image* img, const char* abs_path ) 
 {
-    FILE* imageFile;
-    FILE** img_ptr = &imageFile;
-    if (fopen_s(img_ptr, abs_path, "wb") == 0) //no opening error
+    FILE* imageFile = fopen(abs_path, "wb");
+    
+    if (imageFile != nullptr) //no opening error
         std::cout << "No opening error" << std::endl;
     else {
         perror("ERROR: Cannot open output file. Exiting.");

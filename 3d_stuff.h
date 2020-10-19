@@ -17,12 +17,13 @@ typedef struct cameras
 	mat4f pose; //pose of the camera
 } camera;
 
-typedef struct scene
+typedef struct scenes
 {
 	camera cam; //camera taking the scene
 	triangle* poly; //set of triangles
 	vec3f* lights; //set of directions of the fields of light
-};
+} scene;
 
 vec3f normal(vec3f v0, vec3f v1, vec3f v2); //normal vector of the plane defined by the three points v0, v1, v2
 bool ray_triangle_intersection(vec3f v0, vec3f v1, vec3f v2, vec3f O, vec3f D, float* t, vec3f* I); //calculate the intersection point I between a triangle (v0,v1,v2) and a ray casted from the position O in direction D. t is the distance between O and I.
+void print_cam_infos(camera cam);

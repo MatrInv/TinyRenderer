@@ -4,8 +4,9 @@
 #include <iostream>
 
 #define _USE_MATH_DEFINES
-#include <math.h>
-#include <float.h>
+#include <cstring>
+#include <cfloat>
+
 
 //use differents geometric criteria to eliminate triangles from trgls and put the remaining in selected for the rendering
 bool triangle_selection( triangle* trgl )
@@ -80,10 +81,10 @@ void render(image* img, camera* cam, triangle* triangles[], const int size )
 						{
 							zbuffer[j * xres + i] = t;
 							//intensity calculation
-							intensity = abs(scalarprod(D, N));
-							color[0] = (uint8_t)(base_color[0] * intensity);
-							color[1] = (uint8_t)(base_color[1] * intensity);
-							color[2] = (uint8_t)(base_color[2] * intensity);
+							intensity = std::abs(scalarprod(D, N));
+							color[0] = (uint8_t)((float)base_color[0] * intensity);
+							color[1] = (uint8_t)((float)base_color[1] * intensity);
+							color[2] = (uint8_t)((float)base_color[2] * intensity);
 							set_pixel(img, i, j, color);
 						} //else, don't write anything
 					}
@@ -100,7 +101,6 @@ int main() {
 	mat4f pose = T({ 0,0,-200 }); //let us translate the camera 200units back
 	transpose(&pose);
 	pose = dot(Ry(-M_PI/2),pose); //the camera will face the plane (X,Y)
-	print_mat(pose);
 
 	camera cam = {0.1,xres,yres,200,pose}; //the camera is 200 units far from the screen (it's the focal), so the screen should be coplanar with the plane (X,Y)
 
@@ -124,6 +124,8 @@ int main() {
 
 	const int sz = 3;
 	triangle* T[sz] = { &t0 , &t1 , &t2 };
+
+	print_cam_infos(cam);
 
 	render(&img, &cam , T, sz);
 

@@ -1,4 +1,5 @@
 #include "3d_stuff.h"
+#include <iostream>
 
 //distances are in mm
 
@@ -55,4 +56,12 @@ bool ray_triangle_intersection(vec3f v0, vec3f v1, vec3f v2, vec3f O, vec3f D, f
 	return true;
 }
 
-//vec3f barycenter(vec3f trgl);
+void print_cam_infos(camera cam)
+{
+	std::cout<<std::endl<<"-- CAMERA INFO --"<<std::endl<<std::endl
+	<<"Focal = "<<cam.focal<<std::endl
+	<<"Pixel's metric = "<<cam.k<<"m"<<std::endl
+	<<"Resolution = "<<cam.xres<<"x"<<cam.yres<<"px"<<std::endl<<std::endl
+	<<"Pose = "<<std::endl;
+	print_mat(cam.pose);
+}

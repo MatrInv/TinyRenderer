@@ -42,12 +42,14 @@ typedef struct matrix4f
 {
 	//by default, it's the identity matrix
 	float comp[4 * 4] = { 
-						1 , 0 , 0 , 0 ,
-						0 , 1 , 0 , 0 ,
-						0 , 0 , 1 , 0 ,
-						0 , 0 , 0 , 1 
+						1.f , 0.f , 0.f , 0.f ,
+						0.f , 1.f , 0.f , 0.f ,
+						0.f , 0.f , 1.f , 0.f ,
+						0.f , 0.f , 0.f , 1.f 
 						};
 }mat4f;
+
+void fill(mat4f* M, float* array);
 
 vec4f dot(mat4f M, vec4f v);
 

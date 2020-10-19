@@ -1,5 +1,5 @@
 #include "math_n_co.h"
-#include <math.h>
+//#include <math.h>
 #include <iostream>
 
 int sign(float f)
@@ -64,6 +64,12 @@ vec4f substract(vec4f v0, vec4f v1)
 	return {v0.x-v1.x , v0.y-v1.y , v0.z-v1.z , v0.w-v1.w };
 }
 
+void fill(mat4f* M, float* array)
+{
+	for(int i=0;i<4*4;i++)
+		M->comp[i]=array[i];
+}
+
 vec4f dot(mat4f M, vec4f v)
 {
 	vec4f vres;
@@ -110,42 +116,58 @@ void transpose(mat4f* M)
 
 mat4f Rz(double theta) 
 {
-	return	{ 
-			(float) cos(theta), -(float)sin(theta) , 0 , 0 ,
-			(float) sin(theta) , (float)cos(theta) , 0 , 0 ,
-			0 , 0 , 1 , 0 ,
-			0 , 0 , 0 , 1
-			};
+	mat4f M;
+	float R[4*4] = 
+	{ 
+		(float) cos(theta) , (float)-sin(theta) , 0.f , 0.f ,
+		(float) sin(theta) , (float)cos(theta) , 0.f , 0.f ,
+		0.f , 0.f , 1.f , 0.f ,
+		0.f , 0.f , 0.f , 1.f
+	};
+	fill(&M, R);
+	return M;
 }
 
 mat4f Ry(double theta)
 {
-	return	{
-			(float)cos(theta), 0 , (float)sin(theta) , 0 ,
-			0 , 1 , 0 , 0 ,
-			-(float)sin(theta) , 0 , (float)cos(theta) , 0 ,
-			0 , 0 , 0 , 1
+	mat4f M;
+	float R[4*4] = 
+	{
+		(float)cos(theta) , 0.f , (float)sin(theta) , 0.f ,
+		0.f , 1.f , 0.f , 0.f ,
+		(float)-sin(theta) , 0.f , (float)cos(theta) , 0.f ,
+		0.f , 0.f , 0.f , 1.f
 	};
+	fill(&M, R);
+	return M;
 }
 
 mat4f Rx(double theta)
 {
-	return	{
-			1 , 0 , 0 , 0 ,
-			0 , (float)cos(theta), (float)-sin(theta) , 0 ,
-			0 , (float)sin(theta) , (float)cos(theta) , 0 ,
-			0 , 0 , 0 , 1
-			};
+	mat4f M;
+	float R[4*4] = 	
+	{
+		1.f , 0.f , 0.f , 0.f ,
+		0.f , (float)cos(theta), (float)-sin(theta) , 0.f ,
+		0.f , (float)sin(theta) , (float)cos(theta) , 0.f ,
+		0.f , 0.f , 0.f , 1.f
+	};
+	fill(&M, R);
+	return M;
 }
 
 mat4f T(vec3f v)
 {
-	return	{
-			1 , 0 , 0 , v.x ,
-			0 , 1 , 0 , v.y ,
-			0 , 0 , 1 , v.z ,
-			0 , 0 , 0 , 1 ,
-			};
+	mat4f M;
+	float R[4*4] = 
+	{
+		1.f , 0.f , 0.f , v.x ,
+		0.f , 1.f , 0.f , v.y ,
+		0.f , 0.f , 1.f , v.z ,
+		0.f , 0.f , 0.f , 1.f ,
+	};
+	fill(&M, R);
+	return M;
 }
 
 void print_mat(mat4f M) {
