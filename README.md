@@ -14,13 +14,16 @@ Rendering features implemented:
 -backface culling
 -zbuffering
 
-## Compilation and run
-C++11 is required.
+## Compilation and running
+C++11 is required, be sure your compiler supports it.
+Use the commands below for the compilation :
 
     make all
 or
 
     g++ *.c -o tiny_renderer
-Then
 
+Then, make the file executable and run it.
+
+    chmod +x tiny_renderer
     .\tiny_renderer
